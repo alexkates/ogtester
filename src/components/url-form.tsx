@@ -16,9 +16,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { useState } from "react";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
   url: z.string().url("Please enter a valid URL e.g. https://alexkates.dev"),
@@ -26,6 +26,7 @@ const FormSchema = z.object({
 
 export default function UrlForm() {
   const { toast } = useToast();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -48,14 +49,17 @@ export default function UrlForm() {
       return;
     }
 
-    const json = await res.json();
+    const metatags = (await res.json()) as Record<string, string>;
+    console.log("metatags", metatags);
+    const searchParams = new URLSearchParams();
+    for (const [key, value] of Object.entries(metatags)) {
+      searchParams.append(key, value);
+    }
 
-    console.log(json);
+    const redirectUrl = new URL(window.location.href);
+    redirectUrl.search = searchParams.toString();
 
-    toast({
-      title: "Success!",
-      description: "Your OG metadata is ready.",
-    });
+    router.push(redirectUrl.toString());
   }
 
   return (

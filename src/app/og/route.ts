@@ -16,9 +16,9 @@ export async function GET(request: Request) {
     }
 
     const text = await headResponse.text();
-    const parsedMetaTags = parseMetaTags(text);
+    const metatags = parseMetatags(text);
 
-    return Response.json({ metaTags: parsedMetaTags });
+    return Response.json(metatags);
   } catch (error) {
     const errorMessage = (error as Error).cause;
     console.error(errorMessage);
@@ -26,7 +26,7 @@ export async function GET(request: Request) {
   }
 }
 
-function parseMetaTags(html: string): Record<string, string> {
+function parseMetatags(html: string): Record<string, string> {
   const rawMetaTags = html.match(/<meta[^>]+>/g) as string[];
 
   const metaTags: Record<string, string> = rawMetaTags.reduce(
