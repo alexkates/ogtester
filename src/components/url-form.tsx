@@ -46,6 +46,8 @@ export default function UrlForm() {
 
     const json = await res.json();
 
+    console.log(json);
+
     toast({
       title: "Success!",
       description: "Your OG metadata is ready.",
