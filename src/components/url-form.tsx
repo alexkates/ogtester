@@ -1,100 +1,85 @@
-"use client";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useToast } from "@/components/ui/use-toast";
-import { ReloadIcon } from "@radix-ui/react-icons";
-import { cn } from "@/lib/utils";
-import { useRouter } from "next/navigation";
-
-const FormSchema = z.object({
-  url: z.string().url("Please enter a valid URL e.g. https://alexkates.dev"),
-});
+import { notFound, redirect } from "next/navigation";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 export default function UrlForm() {
-  const { toast } = useToast();
-  const router = useRouter();
+  async function parseMetaTags(metaTags: string[]) {
+    "use server";
 
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      url: "",
-    },
-  });
+    const metaObject: Record<string, string> = {};
+    const metaTagPattern = /<meta (.*?)\/>/g;
 
-  async function onSubmit(data: z.infer<typeof FormSchema>) {
-    const res = await fetch(`/og?url=${encodeURIComponent(data.url)}`);
+    for (const tag of metaTags) {
+      const matches = tag.match(metaTagPattern);
 
-    if (!res.ok) {
-      const statusText = res.statusText;
-      console.error(statusText);
-      toast({
-        title: "Uh oh! Something went wrong.",
-        description:
-          "There was a problem with your request. Check that the URL is valid and try again.",
-      });
-      return;
+      if (matches) {
+        for (const match of matches) {
+          const attributePattern = /([^\s="']+)=["']?([^"']+)["']?/g;
+          const attributes = match.match(attributePattern);
+
+          if (attributes) {
+            let name = "";
+            let content = "";
+
+            for (const attribute of attributes) {
+              const [key, value] = attribute.split("=");
+              if (key === "name") {
+                name = value.replace(/["']/g, "");
+              } else if (key === "property") {
+                name = value.replace(/["']/g, "");
+              } else if (key === "content") {
+                content = value.replace(/["']/g, "");
+              }
+            }
+
+            if (name && content) {
+              metaObject[name] = content;
+            }
+          }
+        }
+      }
     }
 
-    const metatags = (await res.json()) as Record<string, string>;
-    console.log("metatags", metatags);
-    const searchParams = new URLSearchParams();
-    for (const [key, value] of Object.entries(metatags)) {
-      searchParams.append(key, value);
+    return metaObject;
+  }
+
+  async function fetchMetaTags(url: string) {
+    "use server";
+
+    try {
+      const headResponse = await fetch(url);
+
+      if (!headResponse.ok) return undefined;
+
+      const text = await headResponse.text();
+      const metaTags = text.match(/<meta[^>]+>/g) as string[];
+
+      return await parseMetaTags(metaTags);
+    } catch (error) {
+      console.error(error);
+      return undefined;
+    }
+  }
+
+  async function onSubmit(formData: FormData) {
+    "use server";
+
+    const url = formData.get("url") as string;
+    const metaTags = await fetchMetaTags(url);
+
+    if (!metaTags || Object.keys(metaTags).length === 0) {
+      notFound();
     }
 
-    const redirectUrl = new URL(window.location.href);
-    redirectUrl.search = searchParams.toString();
-
-    router.push(redirectUrl.toString());
+    const redirectUrl = "/og?" + new URLSearchParams(metaTags).toString();
+    redirect(redirectUrl.toString());
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
-        <FormField
-          control={form.control}
-          name="url"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Url</FormLabel>
-              <FormControl>
-                <Input placeholder="https://alexkates.dev" {...field} />
-              </FormControl>
-              <FormDescription>
-                This is the URL for which you want to preview the OG metadata.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button
-          type="submit"
-          disabled={form.formState.isSubmitting}
-          className="flex items-center"
-        >
-          <ReloadIcon
-            className={cn(
-              "w-4 h-4 mr-2 animate-spin",
-              !form.formState.isSubmitting && "hidden"
-            )}
-          />
-          Submit
-        </Button>
-      </form>
-    </Form>
+    <form action={onSubmit}>
+      <Input placeholder="https://alexkates.dev" name="url" />
+
+      <Button type="submit">Submit</Button>
+    </form>
   );
 }
