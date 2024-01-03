@@ -32,13 +32,7 @@ export default function UrlForm() {
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    const res = await fetch("/api/og", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    const res = await fetch(`/og?url=${encodeURIComponent(data.url)}`);
 
     if (!res.ok) {
       const statusText = res.statusText;
