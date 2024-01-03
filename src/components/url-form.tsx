@@ -16,6 +16,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
+import { useState } from "react";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { cn } from "@/lib/utils";
 
 const FormSchema = z.object({
   url: z.string().url("Please enter a valid URL e.g. https://alexkates.dev"),
@@ -39,7 +42,8 @@ export default function UrlForm() {
       console.error(statusText);
       toast({
         title: "Uh oh! Something went wrong.",
-        description: "There was a problem with your request.",
+        description:
+          "There was a problem with your request. Check that the URL is valid and try again.",
       });
       return;
     }
@@ -73,7 +77,19 @@ export default function UrlForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button
+          type="submit"
+          disabled={form.formState.isSubmitting}
+          className="flex items-center"
+        >
+          <ReloadIcon
+            className={cn(
+              "w-4 h-4 mr-2 animate-spin",
+              !form.formState.isSubmitting && "hidden"
+            )}
+          />
+          Submit
+        </Button>
       </form>
     </Form>
   );
