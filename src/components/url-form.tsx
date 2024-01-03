@@ -20,7 +20,7 @@ export default function UrlForm() {
 
   return (
     <form action={onSubmit}>
-      <Input placeholder="https://alexkates.dev" name="url" />
+      <Input placeholder="https://alexkates.dev" name="url" type="url" />
       <SubmitButton />
     </form>
   );
