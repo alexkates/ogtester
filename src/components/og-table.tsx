@@ -27,7 +27,12 @@ function OgTable({ tags, className }: Props) {
         {tags.map(([key, value]) => (
           <TableRow key={key}>
             <TableCell>{key}</TableCell>
-            <TableCell>{value}</TableCell>
+            <TableCell>
+              <pre
+                className="text-wrap font-sans"
+                dangerouslySetInnerHTML={{ __html: value as string }}
+              ></pre>
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
