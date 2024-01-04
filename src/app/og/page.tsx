@@ -42,7 +42,7 @@ function Page({
             </TabsList>
             <TabsContent value="Open Graph">
               <OgImage src={ogImage} alt="Open Graph Image" />
-              <Table>
+              <Table className="mt-4">
                 <TableBody>
                   {ogTags.map(([key, value]) => (
                     <TableRow key={key}>
@@ -55,7 +55,7 @@ function Page({
             </TabsContent>
             <TabsContent value="Twitter">
               <OgImage src={twitterImage} alt="Twitter Image" />
-              <Table>
+              <Table className="mt-4">
                 <TableBody>
                   {twitterTags.map(([key, value]) => (
                     <TableRow key={key}>
