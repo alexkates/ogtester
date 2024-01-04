@@ -17,6 +17,17 @@ function Page({
   const url = searchParams.url as string | undefined;
   const ogImage = searchParams["og:image"] as string | undefined;
   const twitterImage = searchParams["twitter:image"] as string | undefined;
+
+  const generalTags = Object.entries(searchParams)
+    .filter(
+      ([key]) =>
+        !key.startsWith("og:") &&
+        !key.startsWith("twitter:") &&
+        key !== "url" &&
+        key !== "title"
+    )
+    .sort(([a], [b]) => a.localeCompare(b));
+
   const ogTags = Object.entries(searchParams)
     .filter(([key]) => key.startsWith("og:") && key !== "og:image")
     .sort(([a], [b]) => a.localeCompare(b));
@@ -39,7 +50,9 @@ function Page({
             <TabsList>
               <TabsTrigger value="Open Graph">Open Graph</TabsTrigger>
               <TabsTrigger value="Twitter">Twitter</TabsTrigger>
+              <TabsTrigger value="General">General</TabsTrigger>
             </TabsList>
+
             <TabsContent value="Open Graph">
               <OgImage src={ogImage} alt="Open Graph Image" />
               <Table className="mt-4">
@@ -53,11 +66,25 @@ function Page({
                 </TableBody>
               </Table>
             </TabsContent>
+
             <TabsContent value="Twitter">
               <OgImage src={twitterImage} alt="Twitter Image" />
               <Table className="mt-4">
                 <TableBody>
                   {twitterTags.map(([key, value]) => (
+                    <TableRow key={key}>
+                      <TableCell>{key}</TableCell>
+                      <TableCell>{value}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TabsContent>
+
+            <TabsContent value="General">
+              <Table className="mt-4">
+                <TableBody>
+                  {generalTags.map(([key, value]) => (
                     <TableRow key={key}>
                       <TableCell>{key}</TableCell>
                       <TableCell>{value}</TableCell>
