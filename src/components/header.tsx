@@ -1,11 +1,11 @@
 import { HeaderNav } from "./header-nav";
-// import { ModeToggle } from "./mode-toggle";
+import { ModeToggle } from "./mode-toggle";
 
 function Header() {
   return (
-    <header className="mb-4 flex items-center justify-between">
+    <header className="py-4 flex items-center justify-between">
       <HeaderNav />
-      {/* <ModeToggle /> */}
+      <ModeToggle />
     </header>
   );
 }
