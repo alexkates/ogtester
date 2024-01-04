@@ -11,7 +11,7 @@ function OgImage(
   const { src, alt, className, ...rest } = props;
   return (
     <img
-      src={src}
+      src={src ?? "/no-image-found.png"}
       alt={alt}
       className={cn("rounded-lg", className)}
       {...rest}

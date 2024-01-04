@@ -1,4 +1,5 @@
 import OgImage from "@/components/og-image";
+import OgTable from "@/components/og-table";
 import {
   Card,
   CardContent,
@@ -6,7 +7,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 function Page({
@@ -55,43 +63,16 @@ function Page({
 
             <TabsContent value="Open Graph">
               <OgImage src={ogImage} alt="Open Graph Image" />
-              <Table className="mt-4">
-                <TableBody>
-                  {ogTags.map(([key, value]) => (
-                    <TableRow key={key}>
-                      <TableCell>{key}</TableCell>
-                      <TableCell>{value}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+              <OgTable tags={ogTags} className="mt-4" />
             </TabsContent>
 
             <TabsContent value="Twitter">
               <OgImage src={twitterImage} alt="Twitter Image" />
-              <Table className="mt-4">
-                <TableBody>
-                  {twitterTags.map(([key, value]) => (
-                    <TableRow key={key}>
-                      <TableCell>{key}</TableCell>
-                      <TableCell>{value}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+              <OgTable tags={twitterTags} className="mt-4" />
             </TabsContent>
 
             <TabsContent value="General">
-              <Table className="mt-4">
-                <TableBody>
-                  {generalTags.map(([key, value]) => (
-                    <TableRow key={key}>
-                      <TableCell>{key}</TableCell>
-                      <TableCell>{value}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+              <OgTable tags={generalTags} className="mt-4" />
             </TabsContent>
           </Tabs>
         </CardContent>
