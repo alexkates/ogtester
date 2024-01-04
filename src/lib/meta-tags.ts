@@ -49,7 +49,10 @@ async function fetchMetaTags(url: string) {
     const text = await headResponse.text();
     const metaTags = text.match(/<meta[^>]+>/g) as string[];
 
-    return await parseMetaTags(metaTags);
+    const parsedMetaTags = await parseMetaTags(metaTags);
+    parsedMetaTags["url"] = url;
+
+    return parsedMetaTags;
   } catch (error) {
     console.error(error);
     return undefined;
