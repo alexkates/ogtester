@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/header";
+import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,8 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <main className="container">{children}</main>
+      <body className={cn(inter.className, "container py-4")}>
+        <Header />
+        <main>{children}</main>
       </body>
     </html>
   );
