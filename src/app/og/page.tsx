@@ -1,12 +1,5 @@
 import OgImage from "@/components/og-image";
 import OgTable from "@/components/og-table";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import UrlForm from "@/components/url-form";
 import fetchMetaTags from "@/lib/meta-tags";
