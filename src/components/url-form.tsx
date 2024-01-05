@@ -15,13 +15,8 @@ export default function UrlForm() {
     "use server";
 
     const url = formData.get("url") as string;
-    const metaTags = await fetchMetaTags(url);
 
-    if (!metaTags || Object.keys(metaTags).length === 0) {
-      throw new Error("No meta tags found");
-    }
-
-    const redirectUrl = "/og?" + new URLSearchParams(metaTags).toString();
+    const redirectUrl = "/og?" + new URLSearchParams({ url }).toString();
     redirect(redirectUrl.toString());
   }
 

@@ -9,37 +9,44 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import UrlForm from "@/components/url-form";
+import fetchMetaTags from "@/lib/meta-tags";
 
-function Page({
+async function Page({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const url = searchParams.url as string | undefined;
-  const ogImage = searchParams["og:image"] as string | undefined;
-  const twitterImage = searchParams["twitter:image"] as string | undefined;
 
-  const allTags = Object.entries(searchParams).sort(([a], [b]) => {
+  if (!url)
+    return (
+      <main>
+        <UrlForm />
+      </main>
+    );
+
+  const metaTags = await fetchMetaTags(url);
+
+  if (!metaTags || Object.keys(metaTags).length === 0) {
+    throw new Error("No meta tags found");
+  }
+
+  const ogImage = metaTags["og:image"] as string | undefined;
+  const twitterImage = metaTags["twitter:image"] as string | undefined;
+
+  const allTags = Object.entries(metaTags).sort(([a], [b]) => {
     const hasColon = (str: string) => str.includes(":");
     if (hasColon(a) && !hasColon(b)) return 1;
     else if (!hasColon(a) && hasColon(b)) return -1;
     else return a.localeCompare(b);
   });
 
-  const ogTags = Object.entries(searchParams)
+  const ogTags = Object.entries(metaTags)
     .filter(([key]) => key.startsWith("og:") && key !== "og:image")
     .sort(([a], [b]) => a.localeCompare(b));
-  const twitterTags = Object.entries(searchParams)
+  const twitterTags = Object.entries(metaTags)
     .filter(([key]) => key.startsWith("twitter:") && key !== "twitter:image")
     .sort(([a], [b]) => a.localeCompare(b));
-
-  if (!Object.keys(searchParams).length) {
-    return (
-      <main>
-        <UrlForm />
-      </main>
-    );
-  }
 
   return (
     <main>
