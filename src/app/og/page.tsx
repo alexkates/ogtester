@@ -7,15 +7,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import UrlForm from "@/components/url-form";
 
 function Page({
   searchParams,
@@ -42,6 +35,14 @@ function Page({
   const twitterTags = Object.entries(searchParams)
     .filter(([key]) => key.startsWith("twitter:") && key !== "twitter:image")
     .sort(([a], [b]) => a.localeCompare(b));
+
+  if (!searchParams && !url && !ogImage && !twitterImage) {
+    return (
+      <main>
+        <UrlForm />
+      </main>
+    );
+  }
 
   return (
     <main>
