@@ -18,7 +18,7 @@ export default function UrlForm() {
     const metaTags = await fetchMetaTags(url);
 
     if (!metaTags || Object.keys(metaTags).length === 0) {
-      notFound();
+      throw new Error("No meta tags found");
     }
 
     const redirectUrl = "/og?" + new URLSearchParams(metaTags).toString();
@@ -35,7 +35,12 @@ export default function UrlForm() {
       </CardHeader>
       <CardContent>
         <form action={onSubmit} className="flex flex-col gap-4">
-          <Input placeholder="https://alexkates.dev" name="url" type="url" />
+          <Input
+            placeholder="https://alexkates.dev"
+            name="url"
+            type="url"
+            required
+          />
           <SubmitButton />
         </form>
       </CardContent>
