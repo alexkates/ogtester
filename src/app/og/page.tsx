@@ -36,7 +36,7 @@ function Page({
     .filter(([key]) => key.startsWith("twitter:") && key !== "twitter:image")
     .sort(([a], [b]) => a.localeCompare(b));
 
-  if (!searchParams && !url && !ogImage && !twitterImage) {
+  if (!Object.keys(searchParams).length) {
     return (
       <main>
         <UrlForm />
