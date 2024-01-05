@@ -8,7 +8,6 @@ import {
   TableRow,
 } from "./ui/table";
 import { cn } from "@/lib/utils";
-import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 
 type Props = {
   tags: [string, string | string[] | undefined][];
