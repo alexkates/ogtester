@@ -19,15 +19,12 @@ function Page({
   const ogImage = searchParams["og:image"] as string | undefined;
   const twitterImage = searchParams["twitter:image"] as string | undefined;
 
-  const generalTags = Object.entries(searchParams)
-    .filter(
-      ([key]) =>
-        !key.startsWith("og:") &&
-        !key.startsWith("twitter:") &&
-        key !== "url" &&
-        key !== "title"
-    )
-    .sort(([a], [b]) => a.localeCompare(b));
+  const allTags = Object.entries(searchParams).sort(([a], [b]) => {
+    const hasColon = (str: string) => str.includes(":");
+    if (hasColon(a) && !hasColon(b)) return 1;
+    else if (!hasColon(a) && hasColon(b)) return -1;
+    else return a.localeCompare(b);
+  });
 
   const ogTags = Object.entries(searchParams)
     .filter(([key]) => key.startsWith("og:") && key !== "og:image")
@@ -57,9 +54,9 @@ function Page({
         <CardContent>
           <Tabs defaultValue="Open Graph">
             <TabsList>
+              <TabsTrigger value="All">All</TabsTrigger>
               <TabsTrigger value="Open Graph">Open Graph</TabsTrigger>
               <TabsTrigger value="Twitter">Twitter</TabsTrigger>
-              <TabsTrigger value="General">General</TabsTrigger>
             </TabsList>
 
             <TabsContent value="Open Graph">
@@ -72,8 +69,8 @@ function Page({
               <OgTable tags={twitterTags} className="mt-4" />
             </TabsContent>
 
-            <TabsContent value="General">
-              <OgTable tags={generalTags} className="mt-4" />
+            <TabsContent value="All">
+              <OgTable tags={allTags} className="mt-4" />
             </TabsContent>
           </Tabs>
         </CardContent>
