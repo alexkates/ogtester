@@ -3,7 +3,12 @@ import { redirect } from "next/navigation";
 async function submitUrl(formData: FormData) {
   "use server";
 
-  const url = formData.get("url") as string;
+  let url = formData.get("url") as string;
+
+  // add protocol if not present
+  if (!url.startsWith("http://") && !url.startsWith("https://")) {
+    url = "https://" + url;
+  }
 
   const redirectUrl = "/og?" + new URLSearchParams({ url }).toString();
   redirect(redirectUrl.toString());

@@ -12,7 +12,7 @@ export default function UrlForm() {
         className="w-full"
         placeholder="https://alexkates.dev"
         name="url"
-        type="url"
+        type="text"
         required
       />
       <SubmitButton />
