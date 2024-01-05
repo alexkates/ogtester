@@ -5,7 +5,7 @@ function Hero() {
         Trust your Open Graph tags
       </h1>
       <h2 className="text-center text-lg leading-tight text-muted-foreground">
-        Just paste in a URL and see what it looks like when shared on socials.
+        Enter a URL to see what it looks like when shared on socials.
       </h2>
     </section>
   );

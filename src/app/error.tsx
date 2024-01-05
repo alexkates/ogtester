@@ -19,11 +19,16 @@ export default function Error({
   }, [error]);
 
   return (
-    <div>
-      <h2>Something went wrong!</h2>
+    <main className="flex flex-col items-center gap-8 p-2 py-8 md:py-12 md:pb-8 lg:py-24 lg:pb-20">
+      <h1 className="text-center text-4xl font-bold leading-tight tracking-tighter md:text-6xl">
+        Sorry about that!
+      </h1>
+      <h2 className="text-center text-lg leading-tight text-muted-foreground">
+        We couldn&apos;t find the page you were looking for.
+      </h2>
       <Button asChild variant={"link"}>
-        <Link href="/">Go back home</Link>
+        <Link href="/">Try again</Link>
       </Button>
-    </div>
+    </main>
   );
 }
