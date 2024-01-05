@@ -3,7 +3,7 @@ import { ModeToggle } from "./mode-toggle";
 
 function Header() {
   return (
-    <header className="py-4 flex items-center justify-between">
+    <header className="flex items-center justify-between py-4">
       <HeaderNav />
       <ModeToggle />
     </header>
