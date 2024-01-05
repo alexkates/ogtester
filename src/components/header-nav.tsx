@@ -19,10 +19,6 @@ export function HeaderNav() {
       href: "/",
       label: "home",
     },
-    {
-      href: "/og",
-      label: "og",
-    },
   ];
 
   return (

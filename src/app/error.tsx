@@ -22,7 +22,7 @@ export default function Error({
     <div>
       <h2>Something went wrong!</h2>
       <Button asChild variant={"link"}>
-        <Link href="/og">Go back home</Link>
+        <Link href="/">Go back home</Link>
       </Button>
     </div>
   );

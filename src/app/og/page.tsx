@@ -47,39 +47,30 @@ async function Page({
     .sort(([a], [b]) => a.localeCompare(b));
 
   return (
-    <main className="my-4">
-      <Card>
-        <CardHeader>
-          <CardTitle>Open Graph Preview for {url}</CardTitle>
-          <CardDescription>
-            Preview <span>{metaTags.title}</span> meta tags and how they will
-            look in social media and messengers.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Tabs defaultValue="All">
-            <TabsList>
-              <TabsTrigger value="All">All</TabsTrigger>
-              <TabsTrigger value="Open Graph">Open Graph</TabsTrigger>
-              <TabsTrigger value="Twitter">Twitter</TabsTrigger>
-            </TabsList>
+    <main className="my-8 flex flex-col items-center gap-8">
+      <UrlForm />
 
-            <TabsContent value="Open Graph">
-              <OgImage src={ogImage} alt="Open Graph Image" />
-              <OgTable tags={ogTags} className="mt-4" />
-            </TabsContent>
+      <Tabs defaultValue="All">
+        <TabsList>
+          <TabsTrigger value="All">All</TabsTrigger>
+          <TabsTrigger value="Open Graph">Open Graph</TabsTrigger>
+          <TabsTrigger value="Twitter">Twitter</TabsTrigger>
+        </TabsList>
 
-            <TabsContent value="Twitter">
-              <OgImage src={twitterImage} alt="Twitter Image" />
-              <OgTable tags={twitterTags} className="mt-4" />
-            </TabsContent>
+        <TabsContent value="Open Graph">
+          <OgImage src={ogImage} alt="Open Graph Image" />
+          <OgTable tags={ogTags} className="mt-4" />
+        </TabsContent>
 
-            <TabsContent value="All">
-              <OgTable tags={allTags} className="mt-4" />
-            </TabsContent>
-          </Tabs>
-        </CardContent>
-      </Card>
+        <TabsContent value="Twitter">
+          <OgImage src={twitterImage} alt="Twitter Image" />
+          <OgTable tags={twitterTags} className="mt-4" />
+        </TabsContent>
+
+        <TabsContent value="All">
+          <OgTable tags={allTags} className="mt-4" />
+        </TabsContent>
+      </Tabs>
     </main>
   );
 }
