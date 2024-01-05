@@ -6,7 +6,7 @@ function OgImage(
   props: DetailedHTMLProps<
     ImgHTMLAttributes<HTMLImageElement>,
     HTMLImageElement
-  >
+  >,
 ) {
   const { src, alt, className, ...rest } = props;
   return (
