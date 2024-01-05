@@ -31,16 +31,14 @@ async function Page({
     throw new Error("No meta tags found");
   }
 
-  const ogImage = metaTags["og:image"] as string | undefined;
-  const twitterImage = metaTags["twitter:image"] as string | undefined;
-
   const allTags = Object.entries(metaTags).sort(([a], [b]) => {
     const hasColon = (str: string) => str.includes(":");
     if (hasColon(a) && !hasColon(b)) return 1;
     else if (!hasColon(a) && hasColon(b)) return -1;
     else return a.localeCompare(b);
   });
-
+  const ogImage = metaTags["og:image"] as string | undefined;
+  const twitterImage = metaTags["twitter:image"] as string | undefined;
   const ogTags = Object.entries(metaTags)
     .filter(([key]) => key.startsWith("og:") && key !== "og:image")
     .sort(([a], [b]) => a.localeCompare(b));
@@ -54,12 +52,12 @@ async function Page({
         <CardHeader>
           <CardTitle>Open Graph Preview for {url}</CardTitle>
           <CardDescription>
-            Preview how {searchParams.title || "this page"} will look in social
-            media and messengers.
+            Preview <span>{metaTags.title}</span> meta tags and how they will
+            look in social media and messengers.
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Tabs defaultValue="Open Graph">
+          <Tabs defaultValue="All">
             <TabsList>
               <TabsTrigger value="All">All</TabsTrigger>
               <TabsTrigger value="Open Graph">Open Graph</TabsTrigger>

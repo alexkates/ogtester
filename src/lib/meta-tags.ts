@@ -48,9 +48,11 @@ async function fetchMetaTags(url: string) {
 
     const text = await headResponse.text();
     const metaTags = text.match(/<meta[^>]+>/g) as string[];
+    const title = text.match(/<title[^>]*>([^<]+)<\/title>/) as string[];
 
     const parsedMetaTags = await parseMetaTags(metaTags);
     parsedMetaTags["url"] = url;
+    parsedMetaTags["title"] = title?.[1] || url;
 
     return parsedMetaTags;
   } catch (error) {

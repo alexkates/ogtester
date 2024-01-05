@@ -8,7 +8,7 @@ import Providers from "@/components/providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "ogtester.app",
+  title: "Ogtester",
   description:
     "Preview how your page will look in social media and messengers.",
 };
