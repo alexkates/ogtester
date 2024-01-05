@@ -1,36 +1,20 @@
+import cheerio from "cheerio";
+
 async function parseMetaTags(metaTags: string[]) {
   "use server";
 
   const metaObject: Record<string, string> = {};
-  const metaTagPattern = /<meta (.*?)\/>/g;
 
   for (const tag of metaTags) {
-    const matches = tag.match(metaTagPattern);
+    const $ = cheerio.load(tag);
+    const attributes = $("meta").attr();
 
-    if (matches) {
-      for (const match of matches) {
-        const attributePattern = /([^\s="']+)=["']?([^"']+)["']?/g;
-        const attributes = match.match(attributePattern);
+    if (attributes) {
+      const name = attributes.name || attributes.property;
+      const content = attributes.content;
 
-        if (attributes) {
-          let name = "";
-          let content = "";
-
-          for (const attribute of attributes) {
-            const [key, value] = attribute.split("=");
-            if (key === "name") {
-              name = value.replace(/["']/g, "");
-            } else if (key === "property") {
-              name = value.replace(/["']/g, "");
-            } else if (key === "content") {
-              content = value.replace(/["']/g, "");
-            }
-          }
-
-          if (name && content) {
-            metaObject[name] = content;
-          }
-        }
+      if (name && content) {
+        metaObject[name] = content;
       }
     }
   }
@@ -47,12 +31,15 @@ async function fetchMetaTags(url: string) {
     if (!headResponse.ok) return undefined;
 
     const text = await headResponse.text();
-    const metaTags = text.match(/<meta[^>]+>/g) as string[];
-    const title = text.match(/<title[^>]*>([^<]+)<\/title>/) as string[];
+    const $ = cheerio.load(text);
+    const metaTags = $("meta")
+      .toArray()
+      .map((tag) => $.html(tag));
+    const title = $("title").text();
 
     const parsedMetaTags = await parseMetaTags(metaTags);
     parsedMetaTags["url"] = url;
-    parsedMetaTags["title"] = title?.[1] || url;
+    parsedMetaTags["title"] = title || url;
 
     return parsedMetaTags;
   } catch (error) {
