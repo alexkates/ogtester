@@ -43,7 +43,7 @@ async function Page({
     <main className="my-8 flex flex-col items-center gap-8">
       <UrlForm />
 
-      <Tabs defaultValue="All">
+      <Tabs defaultValue="All" className="w-full">
         <TabsList>
           <TabsTrigger value="All">All</TabsTrigger>
           <TabsTrigger value="Open Graph">Open Graph</TabsTrigger>

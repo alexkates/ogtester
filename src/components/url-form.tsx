@@ -6,7 +6,7 @@ export default function UrlForm() {
   return (
     <form
       action={submitUrl}
-      className="flex w-full max-w-sm items-center gap-x-2"
+      className="flex w-full max-w-md items-center gap-x-2"
     >
       <Input
         className="w-full"

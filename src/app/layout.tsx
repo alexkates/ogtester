@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/header";
 import { cn } from "@/lib/utils";
 import Providers from "@/components/providers";
+import Footer from "@/components/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,8 +23,11 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={cn(inter.className, "container")}>
         <Providers>
-          <Header />
-          <main>{children}</main>
+          <div className="flex h-screen flex-col">
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
         </Providers>
       </body>
     </html>
