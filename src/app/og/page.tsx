@@ -47,7 +47,7 @@ async function Page({
     .sort(([a], [b]) => a.localeCompare(b));
 
   return (
-    <main>
+    <main className="my-4">
       <Card>
         <CardHeader>
           <CardTitle>Open Graph Preview for {url}</CardTitle>

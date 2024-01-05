@@ -8,6 +8,7 @@ import {
   TableRow,
 } from "./ui/table";
 import { cn } from "@/lib/utils";
+import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 
 type Props = {
   tags: [string, string | string[] | undefined][];
@@ -27,12 +28,7 @@ function OgTable({ tags, className }: Props) {
         {tags.map(([key, value]) => (
           <TableRow key={key}>
             <TableCell>{key}</TableCell>
-            <TableCell>
-              <pre
-                className="text-wrap font-sans"
-                dangerouslySetInnerHTML={{ __html: value as string }}
-              ></pre>
-            </TableCell>
+            <TableCell>{value}</TableCell>
           </TableRow>
         ))}
       </TableBody>
