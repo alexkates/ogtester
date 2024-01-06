@@ -38,7 +38,7 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
       <Card>
         <CardHeader>
           <CardTitle>
-            {metaTags["title"]?.name || metaTags["og:title"]?.name || metaTags["twitter:title"]?.name}
+            {metaTags["title"]?.content || metaTags["og:title"]?.content || metaTags["twitter:title"]?.content}
           </CardTitle>
           <CardDescription>{url}</CardDescription>
         </CardHeader>
