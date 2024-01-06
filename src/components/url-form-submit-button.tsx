@@ -9,7 +9,7 @@ function SubmitButton() {
   const { pending } = useFormStatus();
 
   return (
-    <Button type="submit" disabled={pending} size={"lg"}>
+    <Button type="submit" disabled={pending} size={"lg"} className="w-full">
       <ReloadIcon
         className={cn("mr-2 h-4 w-4 animate-spin", !pending && "hidden")}
       />

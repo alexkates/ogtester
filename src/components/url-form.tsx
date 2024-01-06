@@ -10,18 +10,20 @@ export default function UrlForm({
   return (
     <form
       action={submitUrl}
-      className="flex w-full max-w-xl items-center gap-x-2"
+      className="flex w-full max-w-xl flex-col items-center gap-8"
     >
       <Input
         autoFocus
-        className="h-10"
+        className="h-16"
         defaultValue={defaultValue}
         placeholder="alexkates.dev"
         name="url"
         type="text"
         required
       />
-      <SubmitButton />
+      <div className="flex w-full justify-evenly">
+        <SubmitButton />
+      </div>
     </form>
   );
 }

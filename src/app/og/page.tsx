@@ -1,14 +1,11 @@
 import OgImage from "@/components/og-image";
 import OgTable from "@/components/og-table";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import UrlForm from "@/components/url-form";
 import fetchMetaTags from "@/lib/meta-tags";
 
-async function Page({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
+async function Page({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
   const url = searchParams.url as string | undefined;
 
   if (!url)
@@ -40,30 +37,37 @@ async function Page({
     .sort(([a], [b]) => a.localeCompare(b));
 
   return (
-    <main className="my-8 flex flex-col items-center gap-8">
-      <UrlForm defaultValue={url} />
+    <main className="lex flex-col">
+      <Card>
+        <CardHeader>
+          <CardTitle>{metaTags["title"] || metaTags["og:title"] || metaTags["twitter:title"]}</CardTitle>
+          <CardDescription>{url}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Tabs defaultValue="All" className="w-full">
+            <TabsList>
+              <TabsTrigger value="All">All</TabsTrigger>
+              <TabsTrigger value="Open Graph">Open Graph</TabsTrigger>
+              <TabsTrigger value="Twitter">Twitter</TabsTrigger>
+            </TabsList>
 
-      <Tabs defaultValue="All" className="w-full">
-        <TabsList>
-          <TabsTrigger value="All">All</TabsTrigger>
-          <TabsTrigger value="Open Graph">Open Graph</TabsTrigger>
-          <TabsTrigger value="Twitter">Twitter</TabsTrigger>
-        </TabsList>
+            <TabsContent value="All">
+              <OgTable tags={allTags} className="mt-4" />
+            </TabsContent>
 
-        <TabsContent value="All">
-          <OgTable tags={allTags} className="mt-4" />
-        </TabsContent>
+            <TabsContent value="Open Graph">
+              <OgImage src={ogImage} alt="Open Graph Image" />
+              <OgTable tags={ogTags} className="mt-4" />
+            </TabsContent>
 
-        <TabsContent value="Open Graph">
-          <OgImage src={ogImage} alt="Open Graph Image" />
-          <OgTable tags={ogTags} className="mt-4" />
-        </TabsContent>
-
-        <TabsContent value="Twitter">
-          <OgImage src={twitterImage} alt="Twitter Image" />
-          <OgTable tags={twitterTags} className="mt-4" />
-        </TabsContent>
-      </Tabs>
+            <TabsContent value="Twitter">
+              <OgImage src={twitterImage} alt="Twitter Image" />
+              <OgTable tags={twitterTags} className="mt-4" />
+            </TabsContent>
+          </Tabs>
+        </CardContent>
+        <CardFooter></CardFooter>
+      </Card>
     </main>
   );
 }
