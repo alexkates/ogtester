@@ -1,156 +1,116 @@
-// generate a list of the most popular meta tags with properties including name, description, datatype, example, importance (high, medium, low), and primary purpose.
-
 const metaTags = [
   {
     name: "title",
-    description: "The title of the page",
-    datatype: "string",
+    description:
+      "Defines the page's title, crucial for SEO and displayed in browser tabs. It's the primary identifier for search engines and users, summarizing the page's content.",
     example: "My Awesome Website",
-    importance: "high",
-    primaryPurpose: "SEO",
   },
   {
     name: "description",
-    description: "A description of the page",
-    datatype: "string",
+    description:
+      "Offers a brief overview of the page's content. This snippet is often used by search engines in search results, influencing click-through rates.",
     example: "This is my awesome website",
-    importance: "high",
-    primaryPurpose: "SEO",
   },
   {
     name: "keywords",
-    description: "A comma separated list of keywords",
-    datatype: "string",
+    description:
+      "Lists relevant keywords for the page. While less critical for modern SEO, it helps in categorizing the page's content.",
     example: "website, awesome, cool",
-    importance: "medium",
-    primaryPurpose: "SEO",
   },
   {
     name: "author",
-    description: "The author of the page",
-    datatype: "string",
+    description:
+      "Identifies the author of the page's content, adding credibility and context for search engines and users.",
     example: "John Doe",
-    importance: "medium",
-    primaryPurpose: "SEO",
   },
   {
     name: "robots",
-    description: "A comma separated list of directives",
-    datatype: "string",
+    description:
+      "Provides directives to search engine crawlers, such as whether to index the page or follow links, influencing the page's search engine visibility.",
     example: "index, follow",
-    importance: "medium",
-    primaryPurpose: "SEO",
   },
   {
     name: "viewport",
-    description: "The viewport of the page",
-    datatype: "string",
+    description:
+      "Specifies the viewport settings for responsive design, ensuring the page is displayed correctly on various devices.",
     example: "width=device-width, initial-scale=1.0",
-    importance: "medium",
-    primaryPurpose: "SEO",
   },
   {
     name: "og:title",
-    description: "The title of the page",
-    datatype: "string",
+    description:
+      "Defines the title used when the page is shared on social platforms like Facebook, enhancing social media visibility.",
     example: "My Awesome Website",
-    importance: "high",
-    primaryPurpose: "SEO",
   },
   {
     name: "og:description",
-    description: "A description of the page",
-    datatype: "string",
+    description:
+      "Sets the description for the page when shared on social networks, crucial for engaging users on platforms like Facebook.",
     example: "This is my awesome website",
-    importance: "high",
-    primaryPurpose: "SEO",
   },
   {
     name: "og:image",
-    description: "An image to represent the page",
-    datatype: "string",
+    description:
+      "Specifies an image to represent the page when shared on social media, vital for attracting attention on platforms like Facebook.",
     example: "https://example.com/image.png",
-    importance: "medium",
-    primaryPurpose: "SEO",
   },
   {
     name: "og:url",
-    description: "The canonical URL of the page",
-    datatype: "string",
+    description:
+      "The canonical URL of the page, ensuring consistency when the page is shared or linked on social media platforms.",
     example: "https://example.com",
-    importance: "medium",
-    primaryPurpose: "SEO",
   },
   {
     name: "og:site_name",
-    description: "The name of the website",
-    datatype: "string",
+    description: "The name of the website, used for branding when the page is shared on social platforms.",
     example: "My Awesome Website",
-    importance: "medium",
-    primaryPurpose: "SEO",
   },
   {
     name: "og:locale",
-    description: "The locale of the page",
-    datatype: "string",
+    description:
+      "Sets the locale of the page, important for regional targeting and language settings in social media shares.",
     example: "en_US",
-    importance: "medium",
-    primaryPurpose: "SEO",
   },
   {
     name: "og:type",
-    description: "The type of the page",
-    datatype: "string",
+    description:
+      "Identifies the type of content on the page, helping social platforms categorize and display the shared content appropriately.",
     example: "website",
-    importance: "medium",
-    primaryPurpose: "SEO",
   },
   {
     name: "twitter:card",
-    description: "The type of Twitter card to use",
-    datatype: "string",
+    description:
+      "Defines the type of Twitter card used, important for controlling how content appears when shared on Twitter.",
     example: "summary",
-    importance: "medium",
-    primaryPurpose: "SEO",
   },
   {
     name: "twitter:site",
-    description: "The Twitter username of the website",
-    datatype: "string",
+    description:
+      "The Twitter username of the website, linking the shared content to a specific Twitter account for increased engagement.",
     example: "@example",
-    importance: "medium",
-    primaryPurpose: "SEO",
   },
   {
     name: "twitter:title",
-    description: "The title of the page",
-    datatype: "string",
+    description:
+      "The title of the page as it should appear when shared on Twitter, important for branding and recognition on the platform.",
     example: "My Awesome Website",
-    importance: "medium",
-    primaryPurpose: "SEO",
   },
   {
     name: "twitter:description",
-    description: "A description of the page",
-    datatype: "string",
+    description:
+      "A description of the page for Twitter shares, key to engaging users and driving traffic from Twitter.",
     example: "This is my awesome website",
-    importance: "medium",
-    primaryPurpose: "SEO",
   },
   {
     name: "twitter:image",
-    description: "An image to represent the page",
-    datatype: "string",
+    description: "Specifies an image for Twitter shares, crucial for visual appeal and engagement on the platform.",
     example: "https://example.com/image.png",
-    importance: "medium",
-    primaryPurpose: "SEO",
   },
   {
     name: "twitter:creator",
-    description: "The Twitter username of the author",
-    datatype: "string",
+    description:
+      "The Twitter username of the author, connecting the content to the creator's Twitter profile for increased personal engagement.",
     example: "@example",
-    importance: "medium",
-    primaryPurpose: "SEO",
   },
-];
+] as const;
+
+export default metaTags;
