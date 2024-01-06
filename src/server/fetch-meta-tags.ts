@@ -1,12 +1,13 @@
 "use server";
 
 import { load } from "cheerio";
+import MetaTag from "@/types/metatag";
 
-async function fetchMetaTags(url: string) {
+async function fetchMetaTags(url: string): Promise<Record<string, MetaTag>> {
   try {
     const headResponse = await fetch(url);
 
-    if (!headResponse.ok) return undefined;
+    if (!headResponse.ok) return {} as Record<string, MetaTag>;
 
     const text = await headResponse.text();
     const $ = load(text);
@@ -17,25 +18,24 @@ async function fetchMetaTags(url: string) {
         const attributes = $(tag).attr();
         const name = attributes?.name || attributes?.property;
         const content = attributes?.content;
-        if (name && content) {
-          return { name, content };
-        }
-        return undefined;
+        return { name, content } as MetaTag;
       })
-      .filter(Boolean);
+      .filter((tag) => tag.name && tag.content);
 
     const title = $("title").text();
 
-    const parsedMetaTags: Record<string, string> = {};
-    for (const tag of metaTags) {
-      if (tag) parsedMetaTags[tag.name] = tag.content;
-    }
-    parsedMetaTags["title"] = title;
+    metaTags.push({ name: "title", content: title });
 
-    return parsedMetaTags;
+    return metaTags.reduce(
+      (acc, tag) => {
+        acc[tag.name] = tag;
+        return acc;
+      },
+      {} as Record<string, MetaTag>,
+    );
   } catch (error) {
     console.error(error);
-    return undefined;
+    return {} as Record<string, MetaTag>;
   }
 }
 

@@ -1,12 +1,10 @@
 import OgImage from "@/components/og-image";
 import OgTable from "@/components/og-table";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import UrlForm from "@/components/url-form";
-import fetchMetaTags from "@/lib/meta-tags";
-import Link from "next/link";
-
+import fetchMetaTags from "@/server/fetch-meta-tags";
+import MetaTag from "@/types/metatag";
 async function Page({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
   const url = searchParams.url as string | undefined;
 
@@ -23,26 +21,25 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
     throw new Error("No meta tags found");
   }
 
-  const allTags = Object.entries(metaTags).sort(([a], [b]) => {
+  const allTags = Object.values(metaTags).sort((a, b) => {
     const hasColon = (str: string) => str.includes(":");
-    if (hasColon(a) && !hasColon(b)) return 1;
-    else if (!hasColon(a) && hasColon(b)) return -1;
-    else return a.localeCompare(b);
+    if (hasColon(a.name) && !hasColon(b.name)) return 1;
+    else if (!hasColon(a.name) && hasColon(b.name)) return -1;
+    else return a.name.localeCompare(b.name);
   });
-  const ogImage = metaTags["og:image"] as string | undefined;
-  const twitterImage = metaTags["twitter:image"] as string | undefined;
-  const ogTags = Object.entries(metaTags)
-    .filter(([key]) => key.startsWith("og:") && key !== "og:image")
-    .sort(([a], [b]) => a.localeCompare(b));
-  const twitterTags = Object.entries(metaTags)
-    .filter(([key]) => key.startsWith("twitter:") && key !== "twitter:image")
-    .sort(([a], [b]) => a.localeCompare(b));
+
+  const ogImage = metaTags["og:image"];
+  const twitterImage = metaTags["twitter:image"];
+  const ogTags = allTags.filter((tag) => tag.name.startsWith("og:") && tag.name !== "og:image");
+  const twitterTags = allTags.filter((tag) => tag.name.startsWith("twitter:") && tag.name !== "twitter:image");
 
   return (
     <main className="lex flex-col">
       <Card>
         <CardHeader>
-          <CardTitle>{metaTags["title"] || metaTags["og:title"] || metaTags["twitter:title"]}</CardTitle>
+          <CardTitle>
+            {metaTags["title"]?.name || metaTags["og:title"]?.name || metaTags["twitter:title"]?.name}
+          </CardTitle>
           <CardDescription>{url}</CardDescription>
         </CardHeader>
         <CardContent>
@@ -53,15 +50,15 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
               <TabsTrigger value="Twitter">Twitter</TabsTrigger>
             </TabsList>
             <TabsContent value="All">
-              <OgTable tags={allTags} className="mt-4" />
+              <OgTable metaTags={Object.values(allTags)} className="mt-4" />
             </TabsContent>
             <TabsContent value="Open Graph">
-              <OgImage src={ogImage} alt="Open Graph Image" />
-              <OgTable tags={ogTags} className="mt-4" />
+              <OgImage src={ogImage?.content} alt="Open Graph Image" />
+              <OgTable metaTags={ogTags} className="mt-4" />
             </TabsContent>
             <TabsContent value="Twitter">
-              <OgImage src={twitterImage} alt="Twitter Image" />
-              <OgTable tags={twitterTags} className="mt-4" />
+              <OgImage src={twitterImage?.content} alt="Twitter Image" />
+              <OgTable metaTags={twitterTags} className="mt-4" />
             </TabsContent>
           </Tabs>
         </CardContent>

@@ -3,14 +3,15 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from ".
 import { cn } from "@/lib/utils";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
-import metaTags from "@/data/metaTags";
+import metaTagsDatabase from "@/data/metaTags";
+import MetaTag from "@/types/metatag";
 
 type Props = {
-  tags: [string, string | string[] | undefined][];
+  metaTags: MetaTag[];
   className?: string;
 };
 
-function OgTable({ tags, className }: Props) {
+function OgTable({ metaTags, className }: Props) {
   return (
     <Table className={cn(className)}>
       <TableHeader>
@@ -20,13 +21,13 @@ function OgTable({ tags, className }: Props) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {tags.map(([key, value]) => {
-          const info = metaTags.find((tag) => tag.name === key);
+        {metaTags.map(({ name, content }) => {
+          const info = metaTagsDatabase.find((metaTagFromDatabase) => metaTagFromDatabase.name === name);
 
           return (
-            <TableRow key={key}>
+            <TableRow key={name}>
               <TableCell className="">
-                {info && (
+                {/* {info && (
                   <HoverCard>
                     <HoverCardTrigger>
                       <InfoCircledIcon className="mr-1 inline-block h-4 w-4" />
@@ -38,10 +39,10 @@ function OgTable({ tags, className }: Props) {
                       </div>
                     </HoverCardContent>
                   </HoverCard>
-                )}
-                {key}
+                )} */}
+                {name}
               </TableCell>
-              <TableCell>{value}</TableCell>
+              <TableCell>{content}</TableCell>
             </TableRow>
           );
         })}
