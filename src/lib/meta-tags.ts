@@ -1,43 +1,35 @@
-import cheerio from "cheerio";
+"use server";
 
-async function parseMetaTags(metaTags: string[]) {
-  "use server";
-
-  const metaObject: Record<string, string> = {};
-
-  for (const tag of metaTags) {
-    const $ = cheerio.load(tag);
-    const attributes = $("meta").attr();
-
-    if (attributes) {
-      const name = attributes.name || attributes.property;
-      const content = attributes.content;
-
-      if (name && content) {
-        metaObject[name] = content;
-      }
-    }
-  }
-
-  return metaObject;
-}
+import { load } from "cheerio";
 
 async function fetchMetaTags(url: string) {
-  "use server";
-
   try {
     const headResponse = await fetch(url);
 
     if (!headResponse.ok) return undefined;
 
     const text = await headResponse.text();
-    const $ = cheerio.load(text);
+    const $ = load(text);
+
     const metaTags = $("meta")
       .toArray()
-      .map((tag) => $.html(tag));
+      .map((tag) => {
+        const attributes = $(tag).attr();
+        const name = attributes?.name || attributes?.property;
+        const content = attributes?.content;
+        if (name && content) {
+          return { name, content };
+        }
+        return undefined;
+      })
+      .filter(Boolean);
+
     const title = $("title").text();
 
-    const parsedMetaTags = await parseMetaTags(metaTags);
+    const parsedMetaTags: Record<string, string> = {};
+    for (const tag of metaTags) {
+      if (tag) parsedMetaTags[tag.name] = tag.content;
+    }
     parsedMetaTags["url"] = url;
     parsedMetaTags["title"] = title || url;
 
