@@ -9,9 +9,9 @@ import Footer from "@/components/footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Ogtester",
+  title: "OG Tester",
   description:
-    "Preview how your page will look in social media and messengers.",
+    "Trust your Open Graph tags. OG Tester is a tool to help you debug and preview your meta, Twitter, and Open Graph tags.",
 };
 
 export default function RootLayout({
