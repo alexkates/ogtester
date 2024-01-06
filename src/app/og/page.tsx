@@ -1,10 +1,9 @@
 import OgImage from "@/components/og-image";
 import OgCard from "@/components/og-card";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import UrlForm from "@/components/url-form";
 import fetchMetaTags from "@/server/fetch-meta-tags";
-import MetaTag from "@/types/metatag";
+import metaTagDefinitions from "@/data/meta-tag-definitions";
 async function Page({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
   const url = searchParams.url as string | undefined;
 
@@ -49,25 +48,28 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
         </TabsList>
         <TabsContent value="All">
           <div className="flex w-full flex-col gap-4">
-            {Object.values(allTags).map((metaTag) => (
-              <OgCard key={metaTag.name} metaTag={metaTag} />
-            ))}
+            {Object.values(allTags).map((metaTag) => {
+              const metaTagDefinition = metaTagDefinitions[metaTag.name];
+              return <OgCard key={metaTag.name} metaTag={metaTag} metaTagDeifinition={metaTagDefinition} />;
+            })}
           </div>
         </TabsContent>
         <TabsContent value="Open Graph">
           <OgImage src={ogImage?.content} alt="Open Graph Image" />
           <div className="flex w-full flex-col gap-4">
-            {Object.values(ogTags).map((metaTag) => (
-              <OgCard key={metaTag.name} metaTag={metaTag} />
-            ))}
+            {Object.values(ogTags).map((metaTag) => {
+              const metaTagDefinition = metaTagDefinitions[metaTag.name];
+              return <OgCard key={metaTag.name} metaTag={metaTag} metaTagDeifinition={metaTagDefinition} />;
+            })}
           </div>
         </TabsContent>
         <TabsContent value="Twitter">
           <OgImage src={twitterImage?.content} alt="Twitter Image" />
           <div className="flex w-full flex-col gap-4">
-            {Object.values(twitterTags).map((metaTag) => (
-              <OgCard key={metaTag.name} metaTag={metaTag} />
-            ))}
+            {Object.values(twitterTags).map((metaTag) => {
+              const metaTagDefinition = metaTagDefinitions[metaTag.name];
+              return <OgCard key={metaTag.name} metaTag={metaTag} metaTagDeifinition={metaTagDefinition} />;
+            })}
           </div>
         </TabsContent>
       </Tabs>

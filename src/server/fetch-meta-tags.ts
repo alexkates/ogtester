@@ -1,7 +1,8 @@
 "use server";
 
 import { load } from "cheerio";
-import MetaTag from "@/types/metatag";
+import MetaTag from "@/types/meta-tag";
+import metaTagDefinitions from "@/data/meta-tag-definitions";
 
 async function fetchMetaTags(url: string): Promise<Record<string, MetaTag>> {
   try {
@@ -20,7 +21,7 @@ async function fetchMetaTags(url: string): Promise<Record<string, MetaTag>> {
         const content = attributes?.content;
         return { name, content } as MetaTag;
       })
-      .filter((tag) => tag.name && tag.content);
+      .filter((tag) => tag.name && tag.content && metaTagDefinitions[tag.name]);
 
     const title = $("title").text();
 
