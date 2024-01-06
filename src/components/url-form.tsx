@@ -9,7 +9,8 @@ export default function UrlForm() {
       className="flex w-full max-w-md items-center gap-x-2"
     >
       <Input
-        className="w-full"
+        autoFocus
+        className="h-10"
         placeholder="https://alexkates.dev"
         name="url"
         type="text"
