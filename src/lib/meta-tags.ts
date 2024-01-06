@@ -30,8 +30,7 @@ async function fetchMetaTags(url: string) {
     for (const tag of metaTags) {
       if (tag) parsedMetaTags[tag.name] = tag.content;
     }
-    parsedMetaTags["url"] = url;
-    parsedMetaTags["title"] = title || url;
+    parsedMetaTags["title"] = title;
 
     return parsedMetaTags;
   } catch (error) {

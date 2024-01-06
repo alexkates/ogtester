@@ -41,7 +41,7 @@ async function Page({
 
   return (
     <main className="my-8 flex flex-col items-center gap-8">
-      <UrlForm />
+      <UrlForm defaultValue={url} />
 
       <Tabs defaultValue="All" className="w-full">
         <TabsList>
@@ -49,6 +49,10 @@ async function Page({
           <TabsTrigger value="Open Graph">Open Graph</TabsTrigger>
           <TabsTrigger value="Twitter">Twitter</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="All">
+          <OgTable tags={allTags} className="mt-4" />
+        </TabsContent>
 
         <TabsContent value="Open Graph">
           <OgImage src={ogImage} alt="Open Graph Image" />
@@ -58,10 +62,6 @@ async function Page({
         <TabsContent value="Twitter">
           <OgImage src={twitterImage} alt="Twitter Image" />
           <OgTable tags={twitterTags} className="mt-4" />
-        </TabsContent>
-
-        <TabsContent value="All">
-          <OgTable tags={allTags} className="mt-4" />
         </TabsContent>
       </Tabs>
     </main>
