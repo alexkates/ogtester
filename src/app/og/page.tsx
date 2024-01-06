@@ -1,5 +1,5 @@
 import OgImage from "@/components/og-image";
-import OgTable from "@/components/og-table";
+import OgCard from "@/components/og-card";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import UrlForm from "@/components/url-form";
@@ -34,36 +34,43 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
   const twitterTags = allTags.filter((tag) => tag.name.startsWith("twitter:") && tag.name !== "twitter:image");
 
   return (
-    <main className="lex flex-col">
-      <Card>
-        <CardHeader>
-          <CardTitle>
-            {metaTags["title"]?.content || metaTags["og:title"]?.content || metaTags["twitter:title"]?.content}
-          </CardTitle>
-          <CardDescription>{url}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Tabs defaultValue="All" className="w-full">
-            <TabsList>
-              <TabsTrigger value="All">All</TabsTrigger>
-              <TabsTrigger value="Open Graph">Open Graph</TabsTrigger>
-              <TabsTrigger value="Twitter">Twitter</TabsTrigger>
-            </TabsList>
-            <TabsContent value="All">
-              <OgTable metaTags={Object.values(allTags)} className="mt-4" />
-            </TabsContent>
-            <TabsContent value="Open Graph">
-              <OgImage src={ogImage?.content} alt="Open Graph Image" />
-              <OgTable metaTags={ogTags} className="mt-4" />
-            </TabsContent>
-            <TabsContent value="Twitter">
-              <OgImage src={twitterImage?.content} alt="Twitter Image" />
-              <OgTable metaTags={twitterTags} className="mt-4" />
-            </TabsContent>
-          </Tabs>
-        </CardContent>
-        <CardFooter></CardFooter>
-      </Card>
+    <main className="mt-4 flex flex-col gap-8">
+      <div className="flex flex-col">
+        <span className="text-lg font-semibold">
+          {metaTags["title"]?.content || metaTags["og:title"]?.content || metaTags["twitter:title"]?.content}
+        </span>
+        <span className="text-muted-foreground">{url}</span>
+      </div>
+      <Tabs defaultValue="All" className="w-full">
+        <TabsList>
+          <TabsTrigger value="All">All</TabsTrigger>
+          <TabsTrigger value="Open Graph">Open Graph</TabsTrigger>
+          <TabsTrigger value="Twitter">Twitter</TabsTrigger>
+        </TabsList>
+        <TabsContent value="All">
+          <div className="flex w-full flex-col gap-4">
+            {Object.values(allTags).map((metaTag) => (
+              <OgCard key={metaTag.name} metaTag={metaTag} />
+            ))}
+          </div>
+        </TabsContent>
+        <TabsContent value="Open Graph">
+          <OgImage src={ogImage?.content} alt="Open Graph Image" />
+          <div className="flex w-full flex-col gap-4">
+            {Object.values(ogTags).map((metaTag) => (
+              <OgCard key={metaTag.name} metaTag={metaTag} />
+            ))}
+          </div>
+        </TabsContent>
+        <TabsContent value="Twitter">
+          <OgImage src={twitterImage?.content} alt="Twitter Image" />
+          <div className="flex w-full flex-col gap-4">
+            {Object.values(twitterTags).map((metaTag) => (
+              <OgCard key={metaTag.name} metaTag={metaTag} />
+            ))}
+          </div>
+        </TabsContent>
+      </Tabs>
     </main>
   );
 }
