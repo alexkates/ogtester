@@ -38,19 +38,19 @@ const metaTags = [
   {
     name: "og:title",
     description:
-      "Defines the title used when the page is shared on social platforms like Facebook, enhancing social media visibility.",
+      "Defines the title used when the page is shared on social platforms like Facebook, Instagram, and LinkedIn.",
     example: "My Awesome Website",
   },
   {
     name: "og:description",
     description:
-      "Sets the description for the page when shared on social networks, crucial for engaging users on platforms like Facebook.",
+      "Sets the description for the page when shared on social networks, crucial for engaging users on platforms like Facebook, Instagram, and LinkedIn.",
     example: "This is my awesome website",
   },
   {
     name: "og:image",
     description:
-      "Specifies an image to represent the page when shared on social media, vital for attracting attention on platforms like Facebook.",
+      "Specifies an image to represent the page when shared on social media, vital for attracting attention on platforms like Facebook, Instagram, and LinkedIn.",
     example: "https://example.com/image.png",
   },
   {
