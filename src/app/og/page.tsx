@@ -53,7 +53,7 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
             <OgImage src={ogImage?.content} alt="Open Graph Image" />
           </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {Object.values(allTags).map((metaTagDefinition) => (
+            {allTags.map((metaTagDefinition) => (
               <OgCard key={metaTagDefinition.name} metaTagDefinition={metaTagDefinition} />
             ))}
           </div>
@@ -63,7 +63,7 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
             <OgImage src={ogImage?.content} alt="Open Graph Image" />
           </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {Object.values(ogTags).map((metaTagDefinition) => (
+            {ogTags.map((metaTagDefinition) => (
               <OgCard key={metaTagDefinition.name} metaTagDefinition={metaTagDefinition} />
             ))}
           </div>
@@ -78,7 +78,7 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
             </div>
           </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {Object.values(twitterTags).map((metaTagDefinition) => (
+            {twitterTags.map((metaTagDefinition) => (
               <OgCard key={metaTagDefinition.name} metaTagDefinition={metaTagDefinition} />
             ))}
           </div>
