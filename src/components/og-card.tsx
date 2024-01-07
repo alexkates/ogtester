@@ -2,7 +2,7 @@ import MetaTag from "@/types/meta-tag";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { MetaTagDefinition } from "@/types/meta-tag-definition";
 import Link from "next/link";
-import { ArrowTopRightIcon } from "@radix-ui/react-icons";
+import { ExternalLinkIcon } from "@radix-ui/react-icons";
 
 type Props = {
   metaTagDefinition: MetaTagDefinition;
@@ -22,13 +22,20 @@ function OgCard({ metaTagDefinition, metaTag }: Props) {
         <CardTitle>
           <Link href={metaTagDefinition.link} className="flex items-center underline" target="_blank">
             {metaTagDefinition.name}
-            <ArrowTopRightIcon className="h-4 w-4" />
+            <ExternalLinkIcon className="ml-1 h-4 w-4" />
           </Link>
         </CardTitle>
         <CardDescription className="break-words">{metaTagDefinition.description}</CardDescription>
       </CardHeader>
-      <CardContent className="text-lg">
-        {metaTag?.content && <span>{metaTag.content}</span>}
+      <CardContent>
+        {metaTag?.content && metaTag.content.startsWith("http") && (
+          <Link className="flex items-center underline" href={metaTag.content} target="_blank">
+            {metaTag.content} <ExternalLinkIcon className="ml-1 h-4 w-4" />
+          </Link>
+        )}
+        {metaTag?.content && !metaTag.content.startsWith("http") && (
+          <Link href={metaTag.content}>{metaTag.content}</Link>
+        )}
         {!metaTag?.content && <span className="text-destructive">Could not find tag {metaTag?.name}.</span>}
       </CardContent>
     </Card>
