@@ -8,16 +8,40 @@ import Footer from "@/components/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
+const title = "OG Tester";
+const description =
+  "Trust your Open Graph tags. OG Tester is a tool to help you debug and preview your meta, Twitter, and Open Graph tags.";
 export const metadata: Metadata = {
-  title: "OG Tester",
-  description:
-    "Trust your Open Graph tags. OG Tester is a tool to help you debug and preview your meta, Twitter, and Open Graph tags.",
+  title,
+  description,
   openGraph: {
+    locale: "en_US",
+    siteName: "OG Tester",
+    title,
+    description,
     url: "https://ogtester.app",
     type: "website",
+    images: [
+      {
+        url: "https://ogtester.app/og.png",
+        width: 1200,
+        height: 630,
+        alt: "OG Tester",
+      },
+    ],
   },
   twitter: {
+    card: "summary_large_image",
+    creator: "@thealexkates",
+    description,
     site: "@thealexkates",
+    title,
+    images: [
+      {
+        url: "https://ogtester.app/og.png",
+        alt: "OG Tester",
+      },
+    ],
   },
 };
 
