@@ -34,69 +34,69 @@ const metaTagDefinitions: Record<string, MetaTagDefinition> = {
     description:
       "Defines the title used when the page is shared on social platforms like Facebook, Instagram, and LinkedIn.",
     example: "My Awesome Website",
-    link: "http://alexkates.dev/blog/7-essential-meta-tags-for-enhancing-your-seo-and-social-media-approach#og-title-tag",
+    link: "http://alexkates.dev/blog/7-essential-meta-tags-for-enhancing-your-seo-and-social-media-approach#ogtitle",
   },
   "og:description": {
     name: "og:description",
     description:
       "Sets the description for the page when shared on social networks, crucial for engaging users on platforms like Facebook, Instagram, and LinkedIn.",
     example: "This is my awesome website",
-    link: "http://alexkates.dev/blog/7-essential-meta-tags-for-enhancing-your-seo-and-social-media-approach#og-description-tag",
+    link: "http://alexkates.dev/blog/7-essential-meta-tags-for-enhancing-your-seo-and-social-media-approach#ogdescription",
   },
   "og:image": {
     name: "og:image",
     description:
       "Specifies an image to represent the page when shared on social media, vital for attracting attention on platforms like Facebook, Instagram, and LinkedIn.",
     example: "https://alexkates.dev/opengraph-image.png",
-    link: "http://alexkates.dev/blog/7-essential-meta-tags-for-enhancing-your-seo-and-social-media-approach#og-image-tag",
+    link: "http://alexkates.dev/blog/7-essential-meta-tags-for-enhancing-your-seo-and-social-media-approach#ogimage",
   },
   "og:url": {
     name: "og:url",
     description:
       "The canonical URL of the page, ensuring consistency when the page is shared or linked on social media platforms.",
     example: "https://example.com",
-    link: "http://alexkates.dev/blog/7-essential-meta-tags-for-enhancing-your-seo-and-social-media-approach#og-url-tag",
+    link: "http://alexkates.dev/blog/7-essential-meta-tags-for-enhancing-your-seo-and-social-media-approach#ogurl",
   },
   "og:type": {
     name: "og:type",
     description:
       "Identifies the type of content on the page, helping social platforms categorize and display the shared content appropriately.",
     example: "website",
-    link: "http://alexkates.dev/blog/7-essential-meta-tags-for-enhancing-your-seo-and-social-media-approach#og-type-tag",
+    link: "http://alexkates.dev/blog/7-essential-meta-tags-for-enhancing-your-seo-and-social-media-approach#ogtype",
   },
   "twitter:card": {
     name: "twitter:card",
     description:
       "Defines the type of Twitter card used, important for controlling how content appears when shared on Twitter.",
     example: "summary",
-    link: "http://alexkates.dev/blog/7-essential-meta-tags-for-enhancing-your-seo-and-social-media-approach#twitter-card-tag",
+    link: "http://alexkates.dev/blog/7-essential-meta-tags-for-enhancing-your-seo-and-social-media-approach#twittercard",
   },
   "twitter:title": {
     name: "twitter:title",
     description:
       "The title of the page as it should appear when shared on Twitter, important for branding and recognition on the platform.",
     example: "My Awesome Website",
-    link: "http://alexkates.dev/blog/7-essential-meta-tags-for-enhancing-your-seo-and-social-media-approach#twitter-title-tag",
+    link: "http://alexkates.dev/blog/7-essential-meta-tags-for-enhancing-your-seo-and-social-media-approach#twittertitle",
   },
   "twitter:description": {
     name: "twitter:description",
     description:
       "A description of the page for Twitter shares, key to engaging users and driving traffic from Twitter.",
     example: "This is my awesome website",
-    link: "http://alexkates.dev/blog/7-essential-meta-tags-for-enhancing-your-seo-and-social-media-approach#twitter-description-tag",
+    link: "http://alexkates.dev/blog/7-essential-meta-tags-for-enhancing-your-seo-and-social-media-approach#twitterdescription",
   },
   "twitter:image": {
     name: "twitter:image",
     description: "Specifies an image for Twitter shares, crucial for visual appeal and engagement on the platform.",
     example: "https://alexkates.dev/twitter-image.png",
-    link: "http://alexkates.dev/blog/7-essential-meta-tags-for-enhancing-your-seo-and-social-media-approach#twitter-image-tag",
+    link: "http://alexkates.dev/blog/7-essential-meta-tags-for-enhancing-your-seo-and-social-media-approach#twitterimage",
   },
   "twitter:site": {
     name: "twitter:site",
     description:
       "The Twitter username of the website, linking the shared content to a specific Twitter account for increased engagement.",
     example: "@thealexkates",
-    link: "http://alexkates.dev/blog/7-essential-meta-tags-for-enhancing-your-seo-and-social-media-approach#twitter-site-tag",
+    link: "http://alexkates.dev/blog/7-essential-meta-tags-for-enhancing-your-seo-and-social-media-approach#twittersite",
   },
 };
 

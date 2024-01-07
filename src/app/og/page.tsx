@@ -53,6 +53,12 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
           <TabsTrigger value="All">All</TabsTrigger>
           <TabsTrigger value="Open Graph">Open Graph</TabsTrigger>
           <TabsTrigger value="Twitter">Twitter</TabsTrigger>
+          <TabsTrigger disabled value="Twitter" className="cursor-wait">
+            Slack (Coming Soon)
+          </TabsTrigger>
+          <TabsTrigger disabled value="Twitter">
+            Facebook (Coming Soon)
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="All">
