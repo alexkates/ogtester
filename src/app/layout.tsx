@@ -12,13 +12,16 @@ export const metadata: Metadata = {
   title: "OG Tester",
   description:
     "Trust your Open Graph tags. OG Tester is a tool to help you debug and preview your meta, Twitter, and Open Graph tags.",
+  openGraph: {
+    url: "https://ogtester.app",
+    type: "website",
+  },
+  twitter: {
+    site: "@thealexkates",
+  },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn(inter.className, "container")}>
