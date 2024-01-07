@@ -12,7 +12,7 @@ const config = {
         sm: "2rem",
       },
       screens: {
-        "2xl": "600px",
+        "2xl": "800px",
       },
     },
     extend: {

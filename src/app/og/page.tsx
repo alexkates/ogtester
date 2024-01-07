@@ -49,7 +49,7 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
         </TabsList>
         <TabsContent value="All">
           <OgImage src={ogImage?.content} alt="Open Graph Image" className="mb-4" />
-          <div className="flex w-full flex-col gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {Object.values(allTags).map((metaTag) => {
               const metaTagDefinition = metaTagDefinitions[metaTag.name];
               return <OgCard key={metaTag.name} metaTag={metaTag} metaTagDefinition={metaTagDefinition} />;
@@ -60,7 +60,7 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
           <div className="mb-4 flex flex-col rounded-xl border border-muted">
             <OgImage src={ogImage?.content} alt="Open Graph Image" />
           </div>
-          <div className="flex w-full flex-col gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {Object.values(ogTags).map((metaTag) => {
               const metaTagDefinition = metaTagDefinitions[metaTag.name];
               return <OgCard key={metaTag.name} metaTag={metaTag} metaTagDefinition={metaTagDefinition} />;
@@ -76,7 +76,7 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
               <span className="leading-tight tracking-tight text-muted-foreground">{metaTags.description.content}</span>
             </div>
           </div>
-          <div className="flex w-full flex-col gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {Object.values(twitterTags).map((metaTag) => {
               const metaTagDefinition = metaTagDefinitions[metaTag.name];
               return <OgCard key={metaTag.name} metaTag={metaTag} metaTagDefinition={metaTagDefinition} />;
