@@ -1,9 +1,8 @@
-import metaTagDefinitions from "@/data/meta-tag-definitions";
 import MetaTag from "@/types/meta-tag";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { MetaTagDefinition } from "@/types/meta-tag-definition";
 import Link from "next/link";
-import { ArrowTopRightIcon, Link1Icon, Link2Icon } from "@radix-ui/react-icons";
+import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 
 type Props = {
   metaTagDefinition: MetaTagDefinition;
@@ -13,6 +12,12 @@ type Props = {
 function OgCard({ metaTagDefinition, metaTag }: Props) {
   return (
     <Card>
+      {!metaTag?.content && (
+        <span className="relative -left-2 -top-2 flex h-5 w-5">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-destructive opacity-75"></span>
+          <span className="relative inline-flex h-5 w-5 rounded-full bg-destructive"></span>
+        </span>
+      )}
       <CardHeader>
         <CardTitle>
           <Link href={metaTagDefinition.link} className="flex items-center underline" target="_blank">
@@ -24,11 +29,7 @@ function OgCard({ metaTagDefinition, metaTag }: Props) {
       </CardHeader>
       <CardContent className="text-lg">
         {metaTag?.content && <span>{metaTag.content}</span>}
-        {!metaTag?.content && (
-          <span className="animate-pulse text-red-700 [animation-duration:_3s]">
-            No content found. Consider adding it.
-          </span>
-        )}
+        {!metaTag?.content && <span className="text-destructive">Could not find tag {metaTag?.name}.</span>}
       </CardContent>
     </Card>
   );
