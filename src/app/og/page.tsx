@@ -1,10 +1,12 @@
 import OgImage from "@/components/og-image";
-import OgCard from "@/components/og-card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import UrlForm from "@/components/url-form";
 import fetchMetaTags from "@/server/fetch-meta-tags";
 import metaTagDefinitions from "@/data/meta-tag-definitions";
 import { MetaTagDefinition } from "@/types/meta-tag-definition";
+import OgCardList from "@/components/og-card-list";
+import Link from "next/link";
+import { ExternalLinkIcon } from "@radix-ui/react-icons";
 async function Page({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
   const url = searchParams.url as string | undefined;
 
@@ -40,8 +42,12 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
         <span className="text-lg font-semibold">
           {metaTags["title"]?.content || metaTags["og:title"]?.content || metaTags["twitter:title"]?.content}
         </span>
-        <span className="text-muted-foreground">{url}</span>
+        <Link href={url} target="_blank" className="flex items-center text-muted-foreground underline">
+          {url}
+          <ExternalLinkIcon className="ml-1 h-4 w-4" />
+        </Link>
       </div>
+
       <Tabs defaultValue="All" className="w-full">
         <TabsList>
           <TabsTrigger value="All">All</TabsTrigger>
@@ -53,34 +59,14 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
           <div className="mb-4 flex flex-col rounded-xl border border-muted">
             <OgImage src={ogImage?.content} alt="Open Graph Image" />
           </div>
-          <div className="flex gap-4">
-            {[allTags.slice(0, allTags.length / 2), allTags.slice(allTags.length / 2, allTags.length)].map(
-              (metaTagDefinitionGroup, index) => (
-                <div key={index} className="flex flex-col gap-4">
-                  {metaTagDefinitionGroup.map((metaTagDefinition) => (
-                    <OgCard key={metaTagDefinition.name} metaTagDefinition={metaTagDefinition} />
-                  ))}
-                </div>
-              ),
-            )}
-          </div>
+          <OgCardList metaTagDefinitions={allTags} />
         </TabsContent>
 
         <TabsContent value="Open Graph">
           <div className="mb-4 flex flex-col rounded-xl border border-muted">
             <OgImage src={ogImage?.content} alt="Open Graph Image" />
           </div>
-          <div className="flex gap-4">
-            {[ogTags.slice(0, ogTags.length / 2), ogTags.slice(ogTags.length / 2, ogTags.length)].map(
-              (metaTagDefinitionGroup, index) => (
-                <div key={index} className="flex flex-col gap-4">
-                  {metaTagDefinitionGroup.map((metaTagDefinition) => (
-                    <OgCard key={metaTagDefinition.name} metaTagDefinition={metaTagDefinition} />
-                  ))}
-                </div>
-              ),
-            )}
-          </div>
+          <OgCardList metaTagDefinitions={ogTags} />
         </TabsContent>
 
         <TabsContent value="Twitter">
@@ -92,18 +78,7 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
               <span className="leading-tight tracking-tight text-muted-foreground">{metaTags.description.content}</span>
             </div>
           </div>
-          <div className="flex gap-4">
-            {[
-              twitterTags.slice(0, twitterTags.length / 2),
-              twitterTags.slice(twitterTags.length / 2, twitterTags.length),
-            ].map((metaTagDefinitionGroup, index) => (
-              <div key={index} className="flex flex-col gap-4">
-                {metaTagDefinitionGroup.map((metaTagDefinition) => (
-                  <OgCard key={metaTagDefinition.name} metaTagDefinition={metaTagDefinition} />
-                ))}
-              </div>
-            ))}
-          </div>
+          <OgCardList metaTagDefinitions={twitterTags} />
         </TabsContent>
       </Tabs>
     </main>
