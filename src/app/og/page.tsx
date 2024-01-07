@@ -48,6 +48,7 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
           <TabsTrigger value="Twitter">Twitter</TabsTrigger>
         </TabsList>
         <TabsContent value="All">
+          <OgImage src={ogImage?.content} alt="Open Graph Image" className="mb-2" />
           <div className="flex w-full flex-col gap-4">
             {Object.values(allTags).map((metaTag) => {
               const metaTagDefinition = metaTagDefinitions[metaTag.name];
@@ -56,7 +57,7 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
           </div>
         </TabsContent>
         <TabsContent value="Open Graph">
-          <OgImage src={ogImage?.content} alt="Open Graph Image" />
+          <OgImage src={ogImage?.content} alt="Open Graph Image" className="mb-2" />
           <div className="flex w-full flex-col gap-4">
             {Object.values(ogTags).map((metaTag) => {
               const metaTagDefinition = metaTagDefinitions[metaTag.name];
@@ -65,7 +66,7 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
           </div>
         </TabsContent>
         <TabsContent value="Twitter">
-          <OgImage src={twitterImage?.content} alt="Twitter Image" />
+          <OgImage src={twitterImage?.content} alt="Twitter Image" className="mb-2" />
           <div className="flex w-full flex-col gap-4">
             {Object.values(twitterTags).map((metaTag) => {
               const metaTagDefinition = metaTagDefinitions[metaTag.name];
