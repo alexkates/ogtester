@@ -6,11 +6,11 @@ import Link from "next/link";
 import { ArrowTopRightIcon, Link1Icon, Link2Icon } from "@radix-ui/react-icons";
 
 type Props = {
-  metaTagDeifinition: MetaTagDefinition;
+  metaTagDefinition: MetaTagDefinition;
   metaTag?: MetaTag;
 };
 
-function OgCard({ metaTagDeifinition: metaTagDefinition, metaTag }: Props) {
+function OgCard({ metaTagDefinition, metaTag }: Props) {
   return (
     <Card>
       <CardHeader>
@@ -22,7 +22,14 @@ function OgCard({ metaTagDeifinition: metaTagDefinition, metaTag }: Props) {
         </CardTitle>
         <CardDescription className="break-words">{metaTagDefinition.description}</CardDescription>
       </CardHeader>
-      <CardContent className="text-lg">{metaTag?.content || "No definition found."}</CardContent>
+      <CardContent className="text-lg">
+        {metaTag?.content && <span>{metaTag.content}</span>}
+        {!metaTag?.content && (
+          <span className="animate-pulse text-red-700 [animation-duration:_3s]">
+            No content found. Consider adding it.
+          </span>
+        )}
+      </CardContent>
     </Card>
   );
 }

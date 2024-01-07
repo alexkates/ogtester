@@ -20,11 +20,12 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
     throw new Error("No meta tags found");
   }
 
-  const allTags = Object.values(metaTags).sort((a, b) => {
-    const hasColon = (str: string) => str.includes(":");
-    if (hasColon(a.name) && !hasColon(b.name)) return 1;
-    else if (!hasColon(a.name) && hasColon(b.name)) return -1;
-    else return a.name.localeCompare(b.name);
+  const allTags = Object.values(metaTagDefinitions).map((metaTagDefinition) => {
+    const metaTag = metaTags[metaTagDefinition.name];
+    return {
+      ...metaTagDefinition,
+      content: metaTag?.content,
+    } as const;
   });
 
   const ogImage = metaTags["og:image"];
@@ -50,7 +51,7 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
           <div className="flex w-full flex-col gap-4">
             {Object.values(allTags).map((metaTag) => {
               const metaTagDefinition = metaTagDefinitions[metaTag.name];
-              return <OgCard key={metaTag.name} metaTag={metaTag} metaTagDeifinition={metaTagDefinition} />;
+              return <OgCard key={metaTag.name} metaTag={metaTag} metaTagDefinition={metaTagDefinition} />;
             })}
           </div>
         </TabsContent>
@@ -59,7 +60,7 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
           <div className="flex w-full flex-col gap-4">
             {Object.values(ogTags).map((metaTag) => {
               const metaTagDefinition = metaTagDefinitions[metaTag.name];
-              return <OgCard key={metaTag.name} metaTag={metaTag} metaTagDeifinition={metaTagDefinition} />;
+              return <OgCard key={metaTag.name} metaTag={metaTag} metaTagDefinition={metaTagDefinition} />;
             })}
           </div>
         </TabsContent>
@@ -68,7 +69,7 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
           <div className="flex w-full flex-col gap-4">
             {Object.values(twitterTags).map((metaTag) => {
               const metaTagDefinition = metaTagDefinitions[metaTag.name];
-              return <OgCard key={metaTag.name} metaTag={metaTag} metaTagDeifinition={metaTagDefinition} />;
+              return <OgCard key={metaTag.name} metaTag={metaTag} metaTagDefinition={metaTagDefinition} />;
             })}
           </div>
         </TabsContent>
