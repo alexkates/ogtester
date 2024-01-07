@@ -29,9 +29,11 @@ function OgCard({ metaTagDefinition, metaTag }: Props) {
       </CardHeader>
       <CardContent className="text-lg leading-tight">
         {metaTag?.content && metaTag.content.startsWith("http") && (
-          <Link className="flex items-center underline" href={metaTag.content} target="_blank">
-            {metaTag.content} <ExternalLinkIcon className="ml-1 h-4 w-4" />
-          </Link>
+          <div className="flex items-center">
+            <Link className="underline" href={metaTag.content} target="_blank">
+              {metaTag.content}
+            </Link>
+          </div>
         )}
         {metaTag?.content && !metaTag.content.startsWith("http") && (
           <Link href={metaTag.content}>{metaTag.content}</Link>
