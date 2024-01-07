@@ -12,7 +12,7 @@ function OgCard({ metaTagDefinition }: Props) {
   const metaTag = metaTagDefinition.metaTag;
 
   return (
-    <Card className="relative">
+    <Card className="relative break-words">
       {!metaTag?.content && (
         <span className="absolute -left-2 -top-2 flex h-5 w-5">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-destructive opacity-75"></span>
@@ -26,22 +26,16 @@ function OgCard({ metaTagDefinition }: Props) {
             <ExternalLinkIcon className="ml-1 h-4 w-4" />
           </Link>
         </CardTitle>
-        <CardDescription className="break-words leading-tight">{metaTagDefinition.description}</CardDescription>
+        <CardDescription className="leading-tight">{metaTagDefinition.description}</CardDescription>
       </CardHeader>
-      <CardContent className="text-lg leading-tight">
+      <CardContent className="font-semibold leading-tight">
         {metaTag?.content && metaTag.content.startsWith("http") && (
-          <div className="flex items-center">
-            <Link className="underline" href={metaTag.content} target="_blank">
-              {metaTag.content}
-            </Link>
-          </div>
+          <Link className="break-all underline" href={metaTag.content} target="_blank">
+            {metaTag.content}
+          </Link>
         )}
-        {metaTag?.content && !metaTag.content.startsWith("http") && (
-          <Link href={metaTag.content}>{metaTag.content}</Link>
-        )}
-        {!metaTag?.content && (
-          <span className="font-semibold text-destructive">Could not find tag {metaTag?.name}.</span>
-        )}
+        {metaTag?.content && !metaTag.content.startsWith("http") && <span>{metaTag.content}</span>}
+        {!metaTag?.content && <span className="text-destructive">Could not find tag {metaTagDefinition.name}.</span>}
       </CardContent>
     </Card>
   );
