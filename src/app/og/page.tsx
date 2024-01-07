@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import UrlForm from "@/components/url-form";
 import fetchMetaTags from "@/server/fetch-meta-tags";
 import metaTagDefinitions from "@/data/meta-tag-definitions";
+import { MetaTagDefinition } from "@/types/meta-tag-definition";
 async function Page({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
   const url = searchParams.url as string | undefined;
 
@@ -21,11 +22,11 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
   }
 
   const allTags = Object.values(metaTagDefinitions).map((metaTagDefinition) => {
-    const metaTag = metaTags[metaTagDefinition.name];
+    const metaTag = metaTags[metaTagDefinition.name] ?? undefined;
     return {
       ...metaTagDefinition,
-      content: metaTag?.content,
-    } as const;
+      metaTag,
+    } as MetaTagDefinition;
   });
 
   const ogImage = metaTags["og:image"];
@@ -50,9 +51,14 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
         <TabsContent value="All">
           <OgImage src={ogImage?.content} alt="Open Graph Image" className="mb-4" />
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {Object.values(allTags).map((metaTag) => {
-              const metaTagDefinition = metaTagDefinitions[metaTag.name];
-              return <OgCard key={metaTag.name} metaTag={metaTag} metaTagDefinition={metaTagDefinition} />;
+            {Object.values(allTags).map((metaTagDefinition) => {
+              return (
+                <OgCard
+                  key={metaTagDefinition.name}
+                  metaTag={metaTagDefinition.metaTag}
+                  metaTagDefinition={metaTagDefinition}
+                />
+              );
             })}
           </div>
         </TabsContent>
@@ -61,9 +67,14 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
             <OgImage src={ogImage?.content} alt="Open Graph Image" />
           </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {Object.values(ogTags).map((metaTag) => {
-              const metaTagDefinition = metaTagDefinitions[metaTag.name];
-              return <OgCard key={metaTag.name} metaTag={metaTag} metaTagDefinition={metaTagDefinition} />;
+            {Object.values(ogTags).map((metaTagDefinition) => {
+              return (
+                <OgCard
+                  key={metaTagDefinition.name}
+                  metaTag={metaTagDefinition.metaTag}
+                  metaTagDefinition={metaTagDefinition}
+                />
+              );
             })}
           </div>
         </TabsContent>
@@ -77,9 +88,14 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
             </div>
           </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {Object.values(twitterTags).map((metaTag) => {
-              const metaTagDefinition = metaTagDefinitions[metaTag.name];
-              return <OgCard key={metaTag.name} metaTag={metaTag} metaTagDefinition={metaTagDefinition} />;
+            {Object.values(twitterTags).map((metaTagDefinition) => {
+              return (
+                <OgCard
+                  key={metaTagDefinition.name}
+                  metaTag={metaTagDefinition.metaTag}
+                  metaTagDefinition={metaTagDefinition}
+                />
+              );
             })}
           </div>
         </TabsContent>
