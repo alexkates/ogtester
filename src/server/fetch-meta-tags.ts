@@ -6,7 +6,9 @@ import metaTagDefinitions from "@/data/meta-tag-definitions";
 
 async function fetchMetaTags(url: string): Promise<Record<string, MetaTag>> {
   try {
-    const headResponse = await fetch(url);
+    const headResponse = await fetch(url, {
+      cache: "no-store",
+    });
 
     if (!headResponse.ok) return {} as Record<string, MetaTag>;
 
