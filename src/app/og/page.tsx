@@ -49,17 +49,13 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
           <TabsTrigger value="Twitter">Twitter</TabsTrigger>
         </TabsList>
         <TabsContent value="All">
-          <OgImage src={ogImage?.content} alt="Open Graph Image" className="mb-4" />
+          <div className="mb-4 flex flex-col rounded-xl border border-muted">
+            <OgImage src={ogImage?.content} alt="Open Graph Image" />
+          </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {Object.values(allTags).map((metaTagDefinition) => {
-              return (
-                <OgCard
-                  key={metaTagDefinition.name}
-                  metaTag={metaTagDefinition.metaTag}
-                  metaTagDefinition={metaTagDefinition}
-                />
-              );
-            })}
+            {Object.values(allTags).map((metaTagDefinition) => (
+              <OgCard key={metaTagDefinition.name} metaTagDefinition={metaTagDefinition} />
+            ))}
           </div>
         </TabsContent>
         <TabsContent value="Open Graph">
@@ -67,15 +63,9 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
             <OgImage src={ogImage?.content} alt="Open Graph Image" />
           </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {Object.values(ogTags).map((metaTagDefinition) => {
-              return (
-                <OgCard
-                  key={metaTagDefinition.name}
-                  metaTag={metaTagDefinition.metaTag}
-                  metaTagDefinition={metaTagDefinition}
-                />
-              );
-            })}
+            {Object.values(ogTags).map((metaTagDefinition) => (
+              <OgCard key={metaTagDefinition.name} metaTagDefinition={metaTagDefinition} />
+            ))}
           </div>
         </TabsContent>
         <TabsContent value="Twitter">
@@ -88,15 +78,9 @@ async function Page({ searchParams }: { searchParams: { [key: string]: string | 
             </div>
           </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {Object.values(twitterTags).map((metaTagDefinition) => {
-              return (
-                <OgCard
-                  key={metaTagDefinition.name}
-                  metaTag={metaTagDefinition.metaTag}
-                  metaTagDefinition={metaTagDefinition}
-                />
-              );
-            })}
+            {Object.values(twitterTags).map((metaTagDefinition) => (
+              <OgCard key={metaTagDefinition.name} metaTagDefinition={metaTagDefinition} />
+            ))}
           </div>
         </TabsContent>
       </Tabs>

@@ -6,10 +6,11 @@ import { ExternalLinkIcon } from "@radix-ui/react-icons";
 
 type Props = {
   metaTagDefinition: MetaTagDefinition;
-  metaTag?: MetaTag;
 };
 
-function OgCard({ metaTagDefinition, metaTag }: Props) {
+function OgCard({ metaTagDefinition }: Props) {
+  const metaTag = metaTagDefinition.metaTag;
+
   return (
     <Card className="relative">
       {!metaTag?.content && (
