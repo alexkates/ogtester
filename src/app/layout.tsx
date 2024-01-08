@@ -11,6 +11,7 @@ const inter = Inter({ subsets: ["latin"] });
 const title = "OG Tester";
 const description =
   "Trust your Open Graph tags. OG Tester is a tool to help you debug and preview your meta, Twitter, and Open Graph tags.";
+const ogImageUrl = "https://ogtester.app/og.png";
 export const metadata: Metadata = {
   title,
   description,
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://ogtester.app/og.png",
+        url: ogImageUrl,
         width: 1200,
         height: 630,
         alt: "OG Tester",
@@ -38,8 +39,10 @@ export const metadata: Metadata = {
     title,
     images: [
       {
-        url: "https://ogtester.app/og.png",
+        url: ogImageUrl,
         alt: "OG Tester",
+        width: 1200,
+        height: 630,
       },
     ],
   },
